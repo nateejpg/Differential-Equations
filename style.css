@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    border: none;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+
+}
+
+#farm-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("./images/farm.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.55;
+}
+
+.character1 img{
+    width: 1800px;
+    height: 1800px;
+}
+
+#npc-character {
+    position: relative;
+    left: 20%; 
+    top: 29%;
+}
+
+#main-character {
+    position: relative;
+    left: 85%; 
+    top: 40%;
+    width: 1000px;
+    height: 1000px;
+}
+
+#message-box-02{
+    position: absolute;
+    top: -700px;
+    left: 5%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+    font-size: 90px;
+    width: 1200px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.hidden {
+    display: none;
+}
