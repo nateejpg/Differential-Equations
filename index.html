@@ -9,7 +9,9 @@
 </head>
 <body>
     <div id="game-container">
-        <div id="farm-background"></div>
+        <div id="farm-background">
+            <h1>Fazenda Fibonacci</h1>
+        </div>
         <div id="main-character" class="character1">
             <img src="/images/taty2.PNG"></img>
             <div id="message-box-02" class="hidden">
@@ -22,14 +24,58 @@
                     de criação de gados, tudo usando matemática, teria interesse de saber mais?
                 </p>
             </div>
+            <div id="message-box-05" class="hidden">
+                <p>É um método usando EDOS (Equações diferenciais Ordinárias) onde podemos calcular
+                    quantas vacas o senhor terá em uma certa quantidade de tempo, assim, o senhor
+                    poderá investir uma quantidade agora e ver um aumento em X tempo.
+                </p>
+            </div>
+            <div id="message-box-07" class="hidden">
+                <p>Claro, apenas me diga, quantas vacas o senhor tem agora?
+                </p>
+            </div>
         </div>
         <div id="npc-character" class="character2">
             <img src="/images/farmer.png"></img>
             <div id="message-box-01" class="hidden">
                 <p>Olá senhora, me chamo Fibonacci, bem vinda a minha fazenda, como posso te ajudar?</p>
             </div>
+            <div id="message-box-04" class="hidden">
+                <p>Claro, qual seria esse método?</p>
+            </div>
+            <div id="message-box-06" class="hidden">
+                <p>Que interessante, poderia me dar um exemplo?</p>
+            </div>
+            <div id="message-box-07" class="hidden">
+                <p>Que interessante, poderia me dar um exemplo?</p>
+            </div>
+            <div id="message-box-input-01" class="message-box hidden">
+                <p>Quantas cabeças de gado você possui atualmente?</p>
+                <input type="number" id="cattle-input" />
+                <button id="submit-button-01">Enviar</button>
+            </div>
+            <div id="message-box-input-02" class="message-box hidden">
+                <p>Quantas vacas você pode comprar e investir agora?</p>
+                <input type="number" id="investment-input" />
+                <button id="submit-button-02">Enviar</button>
+            </div>
+            <div id="message-box-input-03" class="message-box hidden">
+                <p>Quantas vacas nasceram no último ano?</p>
+                <input type="number" id="rate-input" />
+                <button id="submit-button-03">Enviar</button>
+            </div>
+            <div id="message-box-input-04" class="message-box hidden">
+                <p>Em quantos anos você quer seu investimento?</p>
+                <input type="number" id="time-input" />
+                <button id="submit-button-04">Enviar</button>
+            </div>
+            <div id="message-box-08" class="message-box hidden">
+                <p>Você realmente é inteligente hein?</p>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+
+

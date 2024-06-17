@@ -18,13 +18,37 @@ body {
 
 #farm-background {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-image: url("./images/farm.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    opacity: 0.55;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
 }
+
+#farm-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25); /* Adjust opacity as needed */
+    z-index: -1; /* Ensure it's behind the text */
+}
+
+#farm-background h1 {
+    position: relative;
+    font-size: 20rem; /* Adjust font size as needed */
+    color: white;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: text shadow for better contrast */
+}
+
 
 .character1 img{
     width: 1800px;
@@ -45,21 +69,40 @@ body {
     height: 1000px;
 }
 
-#message-box-02{
+.message-box{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
     position: absolute;
+    flex-direction: column;
     top: -700px;
     left: 5%;
     transform: translateX(-50%);
     background-color: white;
     border: 1px solid black;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
     font-size: 90px;
-    width: 1200px;
-    height: 500px;
+    width: auto;
+    height: auto;
+    max-width: 1200px;
     border-radius: 10px;
+    gap: 20px;
 }
 
 .hidden {
     display: none;
+}
+
+.message-box input[type = number]{
+    width: 500px;
+    height: 70px;
+    font-size: 60px;
+}
+
+.message-box button{
+    width: auto;
+    height: 70px;
+    font-size: 60px;
 }
