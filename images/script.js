@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'message-box-08', character: 'npc' },
     ];
 
-    let characterPosition = 78;
+    let characterPosition = 85;
     let dialogueStep = 0;
     let dialogueActive = false;
     let cattleCount = 0;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mainCharacter.style.left = characterPosition + '%';
 
-        if (characterPosition <= 30 && dialogueStep === 0) {
+        if (characterPosition <= 40 && dialogueStep === 0) {
             showDialogue();
         }
     }

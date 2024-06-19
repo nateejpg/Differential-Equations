@@ -13,6 +13,8 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: black;
+    background-image: url("/images/farm.jpg");
+    background-size: cover;
 
 }
 
@@ -25,6 +27,7 @@ body {
     background-image: url("./images/farm.jpg");
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     display: flex;
     justify-content: center;
     z-index: 0;
@@ -43,7 +46,7 @@ body {
 
 #farm-background h1 {
     position: relative;
-    font-size: 20rem; /* Adjust font size as needed */
+    font-size: 7rem; /* Adjust font size as needed */
     color: white;
     z-index: 1;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: text shadow for better contrast */
@@ -51,22 +54,27 @@ body {
 
 
 .character1 img{
-    width: 1800px;
-    height: 1800px;
+    max-width: 100%;
+    height: 400px;
+    }
+    
+.character2 img{
+    max-width: 100%;
+    height: 300px;
 }
 
 #npc-character {
-    position: relative;
-    left: 20%; 
-    top: 29%;
+    position: absolute;
+    top: 55vh;
+    left: 10vw;
+    max-width: 100%;
 }
 
 #main-character {
-    position: relative;
-    left: 85%; 
-    top: 40%;
-    width: 1000px;
-    height: 1000px;
+    position: absolute;
+    top: 47vh;
+    left: 75vw;
+    max-width: 100%;
 }
 
 .message-box{
@@ -76,17 +84,16 @@ body {
     justify-content: center;
     position: absolute;
     flex-direction: column;
-    top: -700px;
     left: 5%;
     transform: translateX(-50%);
     background-color: white;
     border: 1px solid black;
     padding: 15px;
     text-align: center;
-    font-size: 90px;
+    font-size: 40px;
     width: auto;
     height: auto;
-    max-width: 1200px;
+    max-width: 300px;
     border-radius: 10px;
     gap: 20px;
 }
