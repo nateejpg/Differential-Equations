@@ -22,7 +22,18 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'message-box-input-02', character: 'input' },
         { id: 'message-box-input-03', character: 'input' },
         { id: 'message-box-input-04', character: 'input' },
-        { id: 'message-box-08', character: 'npc' },
+        { id: 'message-box-08', character: 'main' },
+        { id: 'message-box-09', character: 'npc' },
+        { id: 'message-box-10', character: 'main' },
+        { id: 'message-box-11', character: 'npc' },
+        { id: 'message-box-12', character: 'main' },
+        { id: 'message-box-13', character: 'main' },
+        { id: 'message-box-14', character: 'main' },
+        { id: 'message-box-15', character: 'main' },
+        { id: 'message-box-16', character: 'npc' },
+        { id: 'message-box-17', character: 'main' },
+        { id: 'message-box-18', character: 'npc' },
+        { id: 'message-box-19', character: 'main' },
     ];
 
     let characterPosition = 78;
@@ -44,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mainCharacter.style.left = characterPosition + '%';
 
-        if (characterPosition <= 30 && dialogueStep === 0) {
+        if (characterPosition <= 33 && dialogueStep === 0) {
             showDialogue();
         }
     }
@@ -82,21 +93,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function hideDialogue(event) {
-        if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
-            const previousDialogue = dialogues[dialogueStep - 1];
-            const previousMessageBox = document.getElementById(previousDialogue.id);
+    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
+        const previousDialogue = dialogues[dialogueStep - 1];
+        const previousMessageBox = document.getElementById(previousDialogue.id);
 
-            previousMessageBox.classList.add('hidden');
-            dialogueActive = false;
+        previousMessageBox.classList.add('hidden');
+        dialogueActive = false;
 
-            if (dialogueStep < dialogues.length) {
-                document.removeEventListener('click', hideDialogue);
-                showDialogue();
-            } else {
-                document.removeEventListener('click', hideDialogue);
-            }
+        if (dialogueStep < dialogues.length) {
+            document.removeEventListener('click', hideDialogue);
+            showDialogue();
+        } else {
+            document.removeEventListener('click', hideDialogue);
+        }
+    } else {
+        // Check if the main dialogue box is visible
+        const mainDialogueBox = document.getElementById('message-box-07');
+        if (!mainDialogueBox.classList.contains('hidden')) {
+            mainDialogueBox.classList.add('hidden');
         }
     }
+}
+    
 
     function handleCattleInput() {
         cattleCount = parseInt(cattleInput.value);
@@ -147,41 +165,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleTimeInput() {
-        const timeCount = parseInt(timeInput.value);
+    const timeCount = parseInt(timeInput.value);
 
-        if (isNaN(timeCount) || timeCount <= 0) {
-            alert('Please enter a valid number greater than 0.');
-            return;
-        }
-
-        const cattleCount = parseInt(cattleInput.value);
-        const investmentCount = parseInt(investmentInput.value);
-        const rateCount = parseFloat(rateInput.value);
-
-        if (isNaN(cattleCount) || cattleCount <= 0 || isNaN(rateCount) || rateCount <= 0) {
-            alert('Please enter valid numbers greater than 0 for cattle count and growth rate.');
-            return;
-        }
-
-        const P0 = cattleCount + investmentCount + rateCount;
-        const r = Math.log(P0 / cattleCount)
-        const t = timeCount;
-
-        const P_t = P0 * Math.exp(r * t);
-
-        const mainDialogueBox = document.getElementById('message-box-07');
-        mainDialogueBox.querySelector('p').textContent = `Portanto, com a taxa de crescimento de ${r}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
-
-        const currentDialogue = dialogues[dialogueStep - 1];
-        const currentMessageBox = document.getElementById(currentDialogue.id);
-        currentMessageBox.classList.add('hidden');
-        dialogueActive = false;
-
-        mainDialogueBox.classList.remove('hidden');
-        mainDialogueBox.classList.add('message-box');
-
-        showDialogue();
+    if (isNaN(timeCount) || timeCount <= 0) {
+        alert('Please enter a valid number greater than 0.');
+        return;
     }
+
+    const cattleCount = parseInt(cattleInput.value);
+    const investmentCount = parseInt(investmentInput.value);
+    const rateCount = parseFloat(rateInput.value);
+
+    if (isNaN(cattleCount) || cattleCount <= 0 || isNaN(rateCount) || rateCount <= 0) {
+        alert('Please enter valid numbers greater than 0 for cattle count and growth rate.');
+        return;
+    }
+
+    const P0 = cattleCount + investmentCount;
+    const r = Math.log(P0 / cattleCount);
+    const t = timeCount;
+
+    const P_t = P0 * Math.exp(r * t);
+
+    const mainDialogueBox = document.getElementById('message-box-08');
+    mainDialogueBox.querySelector('p').textContent = `Portanto, com a taxa de crescimento de ${(r * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
+
+    mainDialogueBox.classList.remove('hidden');
+    mainDialogueBox.classList.add('message-box');
+
+    const currentDialogue = dialogues[dialogueStep - 1];
+    const currentMessageBox = document.getElementById(currentDialogue.id);
+    currentMessageBox.classList.add('hidden');
+    dialogueActive = false;
+
+    showDialogue();
+}
+
 
     document.addEventListener('keydown', moveCharacter);
 });
