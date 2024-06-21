@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton02 = document.getElementById('submit-button-02');
     const submitButton03 = document.getElementById('submit-button-03');
     const submitButton04 = document.getElementById('submit-button-04');
+    const submitButton05 = document.getElementById('submit-button-05');
     const cattleInput = document.getElementById('cattle-input');
     const investmentInput = document.getElementById('investment-input');
-    const rateInput = document.getElementById('rate-input');
+    const newInput = document.getElementById('new-input');
+    const lossInput = document.getElementById('loss-input');
     const timeInput = document.getElementById('time-input');
 
     const dialogues = [
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'message-box-input-02', character: 'input' },
         { id: 'message-box-input-03', character: 'input' },
         { id: 'message-box-input-04', character: 'input' },
+        { id: 'message-box-input-05', character: 'input' },
         { id: 'message-box-08', character: 'main' },
         { id: 'message-box-09', character: 'npc' },
         { id: 'message-box-10', character: 'main' },
@@ -40,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let dialogueActive = false;
     let cattleCount = 0;
     let investmentCount = 0;
-    let rateCount = 0;
+    let newCount = 0;
+    let lossCount = 0;
     let timeCount = 0;
 
     function moveCharacter(event) {
@@ -81,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         submitButton02.addEventListener('click', handleInvestmentInput);
                         break;
                     case 'message-box-input-03':
-                        submitButton03.addEventListener('click', handleRateInput);
+                        submitButton03.addEventListener('click', handleNewInput);
                         break;
                     case 'message-box-input-04':
-                        submitButton04.addEventListener('click', handleTimeInput);
+                        submitButton04.addEventListener('click', handleLossInput);
+                        break;
+                    case 'message-box-input-05':
+                        submitButton05.addEventListener('click', handleTimeInput);
                         break;
                 }
             }
@@ -120,15 +127,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
      })
 
-     rateInput.addEventListener('keydown', (event) => {
+     newInput.addEventListener('keydown', (event) => {
         if(event.key == 'Enter'){
             submitButton03.click();
+        }
+     })
+
+     lossInput.addEventListener('keydown', (event) => {
+        if(event.key == 'Enter'){
+            submitButton04.click();
         }
      })
      
      timeInput.addEventListener('keydown', (event) => {
         if(event.key == "Enter"){
-            submitButton04.click();
+            submitButton05.click();
         }
      })
 
@@ -136,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cattleCount = parseInt(cattleInput.value);
 
         if (isNaN(cattleCount) || cattleCount <= 0) {
-            alert('Por favor, insira um número != 0');
+            alert('Por favor, insira um número diferente de 0.');
             return;
         }
 
@@ -152,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         investmentCount = parseInt(investmentInput.value);
 
         if (isNaN(investmentCount) || investmentCount <= 0) {
-            alert('Por favor, insira um número != 0');
+            alert('Por favor, insira um número diferente de 0.');
             return;
         }
 
@@ -164,11 +177,26 @@ document.addEventListener('DOMContentLoaded', () => {
         showDialogue();
     }
 
-    function handleRateInput() {
-        rateCount = parseInt(rateInput.value);
+    function handleNewInput() {
+        newCount = parseInt(newInput.value);
 
-        if (isNaN(rateCount) || rateCount <= 0) {
-            alert('Por favor, insira um número != 0');
+        if (isNaN(newCount) || newCount <= 0) {
+            alert('Por favor, insira um número diferente de 0.');
+            return;
+        }
+
+        const currentDialogue = dialogues[dialogueStep - 1];
+        const currentMessageBox = document.getElementById(currentDialogue.id);
+        currentMessageBox.classList.add('hidden');
+        dialogueActive = false;
+
+        showDialogue();
+    }
+    function handleLossInput() {
+        lossCount = parseInt(lossInput.value);
+
+        if (isNaN(lossCount) || lossCount <= 0) {
+            alert('Por favor, insira um número diferente de 0.');
             return;
         }
 
@@ -181,21 +209,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleTimeInput() {
-        const timeCount = parseInt(timeInput.value);
+         timeCount = parseInt(timeInput.value);
     
         if (isNaN(timeCount) || timeCount <= 0) {
-            alert('Por favor, insira um número != 0');
+            alert('Por favor, insira um número diferente de 0.');
             return;
         }
-    
+
+        const birthRate = newCount - lossCount;
         const P0 = cattleCount + investmentCount;
-        const birthRate = rateCount / P0;
+        const rateCount = birthRate / P0;
     
         const t = timeCount;
-        const P_t = P0 * Math.exp(birthRate * t);
+        const P_t = P0 * Math.exp(rateCount * t);
     
         const mainDialogueBox = document.getElementById('message-box-08');
-        mainDialogueBox.querySelector('p').textContent = `Portanto, com uma taxa de crescimento anual de ${(birthRate * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
+        mainDialogueBox.querySelector('p').textContent = `Portanto, com uma taxa de crescimento anual de ${(rateCount * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
     
         mainDialogueBox.classList.remove('hidden');
         mainDialogueBox.classList.add('message-box');
@@ -223,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const previousDialogue = dialogues[dialogueStep - 2];
             const currentMessageBox = document.getElementById(currentDialogue.id);
             const previousMessageBox = document.getElementById(previousDialogue.id);
-
             currentMessageBox.classList.add('hidden');
             previousMessageBox.classList.remove('hidden');
             previousMessageBox.classList.add('message-box');
