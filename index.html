@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Game</title>
+    <title>Fazenda Fibonacci</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/images/barnIcon.png" type="image/x-icon">
 </head>
 <body>
+    <div id="resolution-alert" style="display: none; background-color: yellow; padding: 10px; text-align: center;">
+       <p>Aviso: Olá, para rodar o jogo, é necessário entrar em um computador, em breve versão mobile!</p>
+    </div>
     <div id="game-container">
+            <div id="reset-game">
+                <img src="images/reset.png" alt="Reset Game Icon">
+            </div>
         <div id="farm-background">
             <h1>Fazenda Fibonacci</h1>
         </div>
+        <div></div>
         <div id="main-character" class="character1">
             <img src="images/taty2.PNG"></img>
             <div id="message-box-02" class="hidden">
@@ -21,13 +28,14 @@
             </div>
             <div id="message-box-03" class="hidden">
                 <p>Enfim, eu possuo um método que pode te ajudar a investir e economizar no ramo 
-                    de criação de gados, tudo usando matemática, teria interesse de saber mais?
+                    de criação de gados, tudo usando matemática, teria interesse em saber mais?
                 </p>
             </div>
             <div id="message-box-05" class="hidden">
-                <p>É um método usando EDOS (Equações diferenciais Ordinárias) onde podemos calcular
+                <p>É um método usando <span>EDOS (Equações diferenciais Ordinárias)
+                </span> onde podemos calcular
                     quantas vacas o senhor terá em uma certa quantidade de tempo, assim, o senhor
-                    poderá investir uma quantidade agora e ver um aumento em X tempo.
+                    poderá investir uma quantidade agora e ver um aumento no seu rebanho!
                 </p>
             </div>
             <div id="message-box-07" class="hidden">
@@ -44,7 +52,7 @@
             </div>
             <div id="message-box-12" class="hidden">
                 <p>Bom, como eu disse, utilizei meu conhecimento de 
-                    equações diferenciais, que são equações que utilizamos 
+                    <span>Equações Diferenciais</span>, que são equações que utilizamos 
                     em várias áreas no dia a dia, desde a medicina, física, 
                     engenharia, agronomia e entre outras.
                 </p>
@@ -63,7 +71,7 @@
             </div>
             <div id="message-box-15" class="hidden">
                 <p> Por fim, a mágica acontece, me dê um número para retornar o seu
-                    investimento e Bazinga, conseguimos uma quantidade aproximada de vacas
+                    investimento e <span>Bazinga</span>, conseguimos uma quantidade aproximada de vacas
                     em x tempo.
                 </p>
             </div>
@@ -126,7 +134,19 @@
                     para vc analisar, estou interessado nesse modelo!
                 </p>
             </div>
+        </div>      
+        <div id="help-popup">
+            <img src="images/question-icon.png" alt="Help Icon">
+            <div id="help-content" class="popup-content hidden">
+                <h1>Como Jogar</h1>
+                <p>para se movimentar, use as teclas <span>A</span> e <span>D </span>ou as setinhas do teclado.</p>
+                <p>para avançar de diálogo, aperte o <span>botão esquerdo do mouse</span>, e para retornar ao diálogo anterior, o <span>botão direito
+                    do mouse!</span>
+                </p>
+                <button id="close-help">Fechar</button>
+            </div>
         </div>
+    </div>
     </div>
     <script src="script.js"></script>
 </body>

@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainCharacter = document.getElementById('main-character');
-    const npcCharacter = document.getElementById('npc-character');
     const submitButton01 = document.getElementById('submit-button-01');
     const submitButton02 = document.getElementById('submit-button-02');
     const submitButton03 = document.getElementById('submit-button-03');
@@ -93,28 +92,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function hideDialogue(event) {
-    if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
-        const previousDialogue = dialogues[dialogueStep - 1];
-        const previousMessageBox = document.getElementById(previousDialogue.id);
+        if (event.target.tagName !== 'INPUT' && event.target.tagName !== 'BUTTON') {
+            const previousDialogue = dialogues[dialogueStep - 1];
+            const previousMessageBox = document.getElementById(previousDialogue.id);
 
-        previousMessageBox.classList.add('hidden');
-        dialogueActive = false;
+            previousMessageBox.classList.add('hidden');
+            dialogueActive = false;
 
-        if (dialogueStep < dialogues.length) {
-            document.removeEventListener('click', hideDialogue);
-            showDialogue();
-        } else {
-            document.removeEventListener('click', hideDialogue);
-        }
-    } else {
-        // Check if the main dialogue box is visible
-        const mainDialogueBox = document.getElementById('message-box-07');
-        if (!mainDialogueBox.classList.contains('hidden')) {
-            mainDialogueBox.classList.add('hidden');
+            if (dialogueStep < dialogues.length) {
+                document.removeEventListener('click', hideDialogue);
+                showDialogue();
+            } else {
+                document.removeEventListener('click', hideDialogue);
+            }
         }
     }
-}
-    
+
+    cattleInput.addEventListener('keydown', (event)=> {
+            if(event.key == 'Enter'){
+                submitButton01.click();
+            }
+     })
+ 
+     investmentInput.addEventListener('keydown', (event) => {
+        if(event.key == 'Enter'){
+            submitButton02.click();
+        }
+     })
+
+     rateInput.addEventListener('keydown', (event) => {
+        if(event.key == 'Enter'){
+            submitButton03.click();
+        }
+     })
+     
+     timeInput.addEventListener('keydown', (event) => {
+        if(event.key == "Enter"){
+            submitButton04.click();
+        }
+     })
 
     function handleCattleInput() {
         cattleCount = parseInt(cattleInput.value);
@@ -165,42 +181,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleTimeInput() {
-    const timeCount = parseInt(timeInput.value);
-
-    if (isNaN(timeCount) || timeCount <= 0) {
-        alert('Please enter a valid number greater than 0.');
-        return;
+        const timeCount = parseInt(timeInput.value);
+    
+        if (isNaN(timeCount) || timeCount <= 0) {
+            alert('Por favor, insira um número != 0');
+            return;
+        }
+    
+        const P0 = cattleCount + investmentCount;
+        const birthRate = rateCount / P0;
+    
+        const t = timeCount;
+        const P_t = P0 * Math.exp(birthRate * t);
+    
+        const mainDialogueBox = document.getElementById('message-box-08');
+        mainDialogueBox.querySelector('p').textContent = `Portanto, com uma taxa de crescimento anual de ${(birthRate * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
+    
+        mainDialogueBox.classList.remove('hidden');
+        mainDialogueBox.classList.add('message-box');
+    
+        const currentDialogue = dialogues[dialogueStep - 1];
+        const currentMessageBox = document.getElementById(currentDialogue.id);
+        currentMessageBox.classList.add('hidden');
+        dialogueActive = false;
+    
+        showDialogue();
     }
 
-    const cattleCount = parseInt(cattleInput.value);
-    const investmentCount = parseInt(investmentInput.value);
-    const rateCount = parseFloat(rateInput.value);
+    document.getElementById('help-popup').addEventListener('click', function(){
+        const helpContent = document.getElementById('help-content');
+        helpContent.classList.toggle('hidden');
+    })
 
-    if (isNaN(cattleCount) || cattleCount <= 0 || isNaN(rateCount) || rateCount <= 0) {
-        alert('Please enter valid numbers greater than 0 for cattle count and growth rate.');
-        return;
+    document.getElementById('reset-game').addEventListener('click', function(){
+        window.location.reload();
+    })
+    
+    function goBackDialogue() {
+        if (dialogueStep > 1) {
+            const currentDialogue = dialogues[dialogueStep - 1];
+            const previousDialogue = dialogues[dialogueStep - 2];
+            const currentMessageBox = document.getElementById(currentDialogue.id);
+            const previousMessageBox = document.getElementById(previousDialogue.id);
+
+            currentMessageBox.classList.add('hidden');
+            previousMessageBox.classList.remove('hidden');
+            previousMessageBox.classList.add('message-box');
+
+            dialogueStep--;
+            dialogueActive = true;
+
+            if (previousDialogue.character !== 'input') {
+                document.addEventListener('click', hideDialogue);
+            }
+        }
     }
 
-    const P0 = cattleCount + investmentCount;
-    const r = Math.log(P0 / cattleCount);
-    const t = timeCount;
+    const resolutionAlert = document.getElementById('resolution-alert');
 
-    const P_t = P0 * Math.exp(r * t);
+    function checkResolution() {
+        if (window.innerWidth <= 1023) {
+            resolutionAlert.style.display = 'block';
+        } else {
+            resolutionAlert.style.display = 'none';
+        }
+    }
 
-    const mainDialogueBox = document.getElementById('message-box-08');
-    mainDialogueBox.querySelector('p').textContent = `Portanto, com a taxa de crescimento de ${(r * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
+    checkResolution();
 
-    mainDialogueBox.classList.remove('hidden');
-    mainDialogueBox.classList.add('message-box');
-
-    const currentDialogue = dialogues[dialogueStep - 1];
-    const currentMessageBox = document.getElementById(currentDialogue.id);
-    currentMessageBox.classList.add('hidden');
-    dialogueActive = false;
-
-    showDialogue();
-}
-
+    window.addEventListener('resize', checkResolution);
 
     document.addEventListener('keydown', moveCharacter);
+    document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        goBackDialogue();
+    });
 });
