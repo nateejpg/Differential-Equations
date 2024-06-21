@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cattleCount = parseInt(cattleInput.value);
 
         if (isNaN(cattleCount) || cattleCount <= 0) {
-            alert('Please enter a valid number of cattle greater than 0.');
+            alert('Por favor, insira um número != 0');
             return;
         }
 
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         investmentCount = parseInt(investmentInput.value);
 
         if (isNaN(investmentCount) || investmentCount <= 0) {
-            alert('Please enter a valid number greater than 0.');
+            alert('Por favor, insira um número != 0');
             return;
         }
 
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rateCount = parseInt(rateInput.value);
 
         if (isNaN(rateCount) || rateCount <= 0) {
-            alert('Please enter a valid number greater than 0.');
+            alert('Por favor, insira um número != 0');
             return;
         }
 
