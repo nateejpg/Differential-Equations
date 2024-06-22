@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton05 = document.getElementById('submit-button-05');
     const cattleInput = document.getElementById('cattle-input');
     const investmentInput = document.getElementById('investment-input');
-    const newInput = document.getElementById('new-input');
-    const lossInput = document.getElementById('loss-input');
+    const oldInput = document.getElementById('old-input');
     const timeInput = document.getElementById('time-input');
 
     const dialogues = [
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'message-box-input-02', character: 'input' },
         { id: 'message-box-input-03', character: 'input' },
         { id: 'message-box-input-04', character: 'input' },
-        { id: 'message-box-input-05', character: 'input' },
         { id: 'message-box-08', character: 'main' },
         { id: 'message-box-09', character: 'npc' },
         { id: 'message-box-10', character: 'main' },
@@ -50,9 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let dialogueStep = 0;
     let dialogueActive = false;
     let cattleCount = 0;
+    let oldCount = 0;
     let investmentCount = 0;
-    let newCount = 0;
-    let lossCount = 0;
     let timeCount = 0;
 
     function moveCharacter(event) {
@@ -90,16 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         submitButton01.addEventListener('click', handleCattleInput);
                         break;
                     case 'message-box-input-02':
-                        submitButton02.addEventListener('click', handleInvestmentInput);
+                        submitButton02.addEventListener('click', handleOldInput);
                         break;
                     case 'message-box-input-03':
-                        submitButton03.addEventListener('click', handleNewInput);
+                        submitButton03.addEventListener('click', handleInvestmentInput);
                         break;
                     case 'message-box-input-04':
-                        submitButton04.addEventListener('click', handleLossInput);
-                        break;
-                    case 'message-box-input-05':
-                        submitButton05.addEventListener('click', handleTimeInput);
+                        submitButton04.addEventListener('click', handleTimeInput);
                         break;
                 }
             }
@@ -128,30 +122,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitButton01.click();
             }
      })
+
+    oldInput.addEventListener('keydown', (event)=> {
+            if(event.key == 'Enter'){
+                submitButton02.click();
+            }
+     })
  
      investmentInput.addEventListener('keydown', (event) => {
         if(event.key == 'Enter'){
-            submitButton02.click();
-        }
-     })
-
-     newInput.addEventListener('keydown', (event) => {
-        if(event.key == 'Enter'){
             submitButton03.click();
-        }
-     })
-
-     lossInput.addEventListener('keydown', (event) => {
-        if(event.key == 'Enter'){
-            submitButton04.click();
         }
      })
      
      timeInput.addEventListener('keydown', (event) => {
         if(event.key == "Enter"){
-            submitButton05.click();
+            submitButton04.click();
         }
      })
+
+     cattleCount = 0
+     oldCount = 0
 
     function handleCattleInput() {
         cattleCount = parseInt(cattleInput.value);
@@ -169,6 +160,21 @@ document.addEventListener('DOMContentLoaded', () => {
         showDialogue();
     }
 
+    function handleOldInput() {
+        oldCount = parseInt(oldInput.value);
+
+        if (isNaN(oldCount) || oldCount <= 0) {
+            alert('Por favor, insira um número diferente de 0.');
+            return;
+        }
+
+        const currentDialogue = dialogues[dialogueStep - 1];
+        const currentMessageBox = document.getElementById(currentDialogue.id);
+        currentMessageBox.classList.add('hidden');
+        dialogueActive = false;
+
+        showDialogue();
+    }
     function handleInvestmentInput() {
         investmentCount = parseInt(investmentInput.value);
 
@@ -185,36 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
         showDialogue();
     }
 
-    function handleNewInput() {
-        newCount = parseInt(newInput.value);
-
-        if (isNaN(newCount) || newCount <= 0) {
-            alert('Por favor, insira um número diferente de 0.');
-            return;
-        }
-
-        const currentDialogue = dialogues[dialogueStep - 1];
-        const currentMessageBox = document.getElementById(currentDialogue.id);
-        currentMessageBox.classList.add('hidden');
-        dialogueActive = false;
-
-        showDialogue();
-    }
-    function handleLossInput() {
-        lossCount = parseInt(lossInput.value);
-
-        if (isNaN(lossCount) || lossCount <= 0) {
-            alert('Por favor, insira um número diferente de 0.');
-            return;
-        }
-
-        const currentDialogue = dialogues[dialogueStep - 1];
-        const currentMessageBox = document.getElementById(currentDialogue.id);
-        currentMessageBox.classList.add('hidden');
-        dialogueActive = false;
-
-        showDialogue();
-    }
 
     function handleTimeInput() {
          timeCount = parseInt(timeInput.value);
@@ -224,10 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const birthRate = newCount - lossCount;
+        const razao = cattleCount / oldCount;
         const P0 = cattleCount + investmentCount;
-        const rateCount = birthRate / P0;
-    
+        const rateCount = Math.log(razao);
         const t = timeCount;
         const P_t = P0 * Math.exp(rateCount * t);
     
