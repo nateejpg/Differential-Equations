@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const P_t = P0 * Math.exp(rateCount * t);
     
         const mainDialogueBox = document.getElementById('message-box-08');
-        mainDialogueBox.querySelector('p').textContent = `Portanto, com uma taxa de crescimento anual de ${(rateCount * 100).toFixed(2)}%, em ${timeCount} anos, você terá aproximadamente ${Math.round(P_t)} vacas.`;
+        mainDialogueBox.querySelector('p').textContent = `Portanto, com uma taxa de crescimento anual de ${(rateCount * 100).toFixed(2)}%, em ${timeCount} ano(s), você terá aproximadamente ${Math.round(P_t)} vacas.`;
     
         mainDialogueBox.classList.remove('hidden');
         mainDialogueBox.classList.add('message-box');
