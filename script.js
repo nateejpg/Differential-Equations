@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const audio = document.getElementById('myAudio')
 
-    audio.volume = 0.20,
+    audio.volume = 0.15,
 
     document.body.addEventListener("mousemove", function(){
         audio.play();
