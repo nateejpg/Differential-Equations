@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const razao = cattleCount / oldCount;
         const P0 = cattleCount + investmentCount;
-        const rateCount = Math.log(razao);
+        const rateCount = Math.log(razao) / timeCount;
         const t = timeCount;
         const P_t = P0 * Math.exp(rateCount * t);
     
