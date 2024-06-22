@@ -50,7 +50,7 @@ body {
     position: relative;
     font-size: 7rem;
     color: white;
-    margin-top: 3%;
+    margin-top: 5%;
     z-index: 1;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
@@ -250,10 +250,11 @@ body {
         position: absolute;
         top: 55%; 
         left: 50%; 
+        max-width: 200px;
         transform: translateX(-50%);
         background-color: white;
         color: #333; 
-        padding: 10px;
+        padding: 5px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
         z-index: 1000; 
