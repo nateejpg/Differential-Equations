@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'message-box-19', character: 'main' },
     ];
 
+    const audio = document.getElementById('myAudio')
+
+    audio.volume = 0.20,
+
+    document.body.addEventListener("mousemove", function(){
+        audio.play();
+    })
+
     let characterPosition = 78;
     let dialogueStep = 0;
     let dialogueActive = false;
@@ -284,4 +292,5 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         goBackDialogue();
     });
+
 });
