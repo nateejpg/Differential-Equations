@@ -50,6 +50,7 @@ body {
     position: relative;
     font-size: 7rem;
     color: white;
+    margin-top: 3%;
     z-index: 1;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
@@ -247,15 +248,17 @@ body {
     #resolution-alert {
         display: none; 
         position: absolute;
-        top: 20px; 
+        top: 55%; 
         left: 50%; 
         transform: translateX(-50%);
-        background-color: #ffc107;
+        background-color: white;
         color: #333; 
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
         z-index: 1000; 
+        font-size: 17px;
+        font-weight: bold;
     }
 
 }
